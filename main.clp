@@ -71,6 +71,7 @@
     (worst_texture ?worstTexture)
     (test (> ?worstTexture 25.65))
 => 
+    (printout t"perimeter error : ")
     (assert(perimeter_error(read))))
 
 (defrule zero_perimeter_error
@@ -83,7 +84,7 @@
     (perimeter_error ?perimeterError)
     (test (> ?perimeterError 1.56))
 =>
-    printout t"Probability : 0")
+    (printout t"Probability : 0"))
 
 (defrule mean_radius
     (mean_concave_points ?meanConcavePoints)
@@ -95,33 +96,60 @@
     (perimeter_error ?perimeterError)
     (test (<= ?perimeterError 1.56))
 =>
+    (printout t"mean radius :")
     (assert(mean_radius(read))))
 
-
-
-
-
-
-(defrule left_worst_texture
-    (radius_error ?value)
-    (test(<= ?value3 0.63))
+(defrule zero_mean_radius
+    (mean_concave_points ?meanConcavePoints)
+    (test (> ?meanConcavePoints 0.05))
+    (worst_perimeter ?worstPerimeter)
+    (test (<= ?worstPerimeter 114.45))
+    (worst_texture ?worstTexture)
+    (test (> ?worstTexture 25.65))
+    (perimeter_error ?perimeterError)
+    (test (<= ?perimeterError 1.56))
+    (mean_radius ?meanRadius)
+    (test (<= ?meanRadius 13.34))
 =>
-    (printout t"worst texture : ")
-    (assert(left_worst_texture(read))))
+    (printout t"Probability : 0"))
 
-(defrule worst_area
-    (left_worst_texture ?value)
-    (test(> ?value 30.15))
+(defrule one_mean_radius
+    (mean_concave_points ?meanConcavePoints)
+    (test (> ?meanConcavePoints 0.05))
+    (worst_perimeter ?worstPerimeter)
+    (test (<= ?worstPerimeter 114.45))
+    (worst_texture ?worstTexture)
+    (test (> ?worstTexture 25.65))
+    (perimeter_error ?perimeterError)
+    (test (<= ?perimeterError 1.56))
+    (mean_radius ?meanRadius)
+    (test (> ?meanRadius 13.34))
 =>
-    (printout t"worst texture : ")
-    (assert(worst_texture(read))))
+    (printout t"Probability : 1"))
 
-(defrule mean
-    (left_worst_texture ?value)
-    (test(> ?value 30.15))
-=>
-    (printout t"worst texture : ")
-    (assert(worst_texture(read))))
+
+
+
+; (defrule left_worst_texture
+;     (radius_error ?value)
+;     (test(<= ?value3 0.63))
+; =>
+;     (printout t"worst texture : ")
+;     (assert(left_worst_texture(read))))
+
+; (defrule worst_area
+;     (left_worst_texture ?value)
+;     (test(> ?value 30.15))
+; =>
+;     (printout t"worst texture : ")
+;     (assert(worst_texture(read))))
+
+; (defrule mean
+;     (left_worst_texture ?value)
+;     (test(> ?value 30.15))
+; =>
+;     (printout t"worst texture : ")
+;     (assert(worst_texture(read))))
 
 
 
