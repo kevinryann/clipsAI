@@ -159,17 +159,17 @@
     (assert(left_mean_texture(read))))
 
 (defrule one_result
-    (or ((left_worst_texture ?value1) (<= ?value1 30.15))
-        ((worst_area ?value2) (<= ?value2 641.60))
-        ((left_mean_texture ?value3) (> ?value3 28.79))
-        ((left_mean_radius ?value4) (> ?value4 13.45))
+    (or ((left_worst_texture ?value1) (test (<= ?value1 30.15)))
+        ((worst_area ?value2) (test (<= ?value2 641.60)))
+        ((left_mean_texture ?value3) (test (> ?value3 28.79)))
+        ((left_mean_radius ?value4) (test (> ?value4 13.45)))
     )
 =>
     (printout t"Probability : 1")
 )
 
 (defrule zero_result
-    (or ((left_mean_texture ?value1) (<= ?value1 28.79))
+    (or ((left_mean_texture ?value1) (test (<= ?value1 28.79)))
     )
 =>
     (printout t"Probability : 0")
