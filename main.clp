@@ -130,27 +130,50 @@
 
 
 
-; (defrule left_worst_texture
-;     (radius_error ?value)
-;     (test(<= ?value3 0.63))
-; =>
-;     (printout t"worst texture : ")
-;     (assert(left_worst_texture(read))))
+(defrule left_worst_texture
+    (radius_error ?value)
+    (test(<= ?value3 0.63))
+=>
+    (printout t"worst texture : ")
+    (assert(left_worst_texture(read))))
 
-; (defrule worst_area
-;     (left_worst_texture ?value)
-;     (test(> ?value 30.15))
-; =>
-;     (printout t"worst texture : ")
-;     (assert(worst_texture(read))))
+(defrule worst_area
+    (left_worst_texture ?value)
+    (test(> ?value 30.15))
+=>
+    (printout t"worst texture : ")
+    (assert(worst_area(read))))
 
-; (defrule mean
-;     (left_worst_texture ?value)
-;     (test(> ?value 30.15))
-; =>
-;     (printout t"worst texture : ")
-;     (assert(worst_texture(read))))
+(defrule left_mean_radius
+    (worst_area ?value)
+    (test(> ?value 641.60))
+=>
+    (printout t"mean readius : ")
+    (assert(left_mean_radius(read))))
 
+(defrule left_mean_texture
+    (left_mean_radius ?value)
+    (test(<= ?value 13.45))
+=>
+    (printout t"mean texture : ")
+    (assert(left_mean_texture(read))))
+
+(defrule one_result
+    (or ((left_worst_texture ?value1) (<= ?value1 30.15))
+        ((worst_area ?value2) (<= ?value2 641.60))
+        ((left_mean_texture ?value3) (> ?value3 28.79))
+        ((left_mean_radius ?value4) (> ?value4 13.45))
+    )
+=>
+    (printout t"Probability : 1")
+)
+
+(defrule zero_result
+    (or ((left_mean_texture ?value1) (<= ?value1 28.79))
+    )
+=>
+    (printout t"Probability : 0")
+)
 
 
 
