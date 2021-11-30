@@ -105,6 +105,41 @@
     (printout t"mean texture : ")
     (assert(left_mean_texture(read))))
 
+(defrule one_left_worst_texture
+    (left_worst_texture ?value)
+    (test(<= ?value 30.15))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule one_worst_area
+    (worst_area ?value)
+    (test(<= ?value 641.60))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule zero_left_mean_texture
+    (left_mean_texture ?value)
+    (test(<= ?value 28.79))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
+)
+
+(defrule one_left_mean_texture
+    (left_mean_texture ?value)
+    (test(> ?value 28.79))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule one_left_mean_radius
+    (left_mean_radius ?value)
+    (test(> ?value 13.45))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
 (defrule one_result
     (left_worst_texture ?value1) 
 ;    (worst_area ?value2) 
