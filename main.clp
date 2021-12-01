@@ -11,6 +11,12 @@
     (printout t"worst perimeter : ")
     (assert(worst_perimeter(read))))
 
+(defrule zero_worst_perimeter
+    (worst_perimeter ?worstPerimeter)
+    (test (> ?worstPerimeter 114.45))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara"))
+
 (defrule worst_texture
     (worst_perimeter ?worstPerimeter)
     (test (<= ?worstPerimeter 114.45))
@@ -25,6 +31,18 @@
     (printout t"worst_concave_points : ")
     (assert(worst_concave_points(read))))
 
+(defrule zero_worst_concave_points
+    (worst_concave_points ?worstConcavePoints)
+    (test (<= ?worstConcavePoints 0.17))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara"))
+
+(defrule one_worst_concave_points
+    (worst_concave_points ?worstConcavePoints)
+    (test (> ?worstConcavePoints 0.17))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara"))
+
 (defrule perimeter_error
     (worst_texture ?worstTexture)
     (test (> ?worstTexture 25.65))
@@ -32,12 +50,30 @@
     (printout t"perimeter error : ")
     (assert(perimeter_error(read))))
 
+(defrule zero_perimeter_error
+    (perimeter_error ?perimeterError)
+    (test (> ?perimeterError 1.56))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara"))
+
 (defrule mean_radius
     (perimeter_error ?perimeterError)
     (test (<= ?perimeterError 1.56))
 =>
     (printout t"mean radius :")
     (assert(mean_radius(read))))
+
+(defrule zero_mean_radius
+    (mean_radius ?meanRadius)
+    (test (<= ?meanRadius 13.34))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara"))
+
+(defrule one_mean_radius
+    (mean_radius ?meanRadius)
+    (test (> ?meanRadius 13.34))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara"))
 
 
 
@@ -183,7 +219,7 @@
 ;        ((mean_radius ?meanRadius)(test (> ?meanRadius 13.34)))
 ;    )
 ;=>
-;    (printout t"Probability : 1")
+;    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
 ;    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
 ;)
 
@@ -222,7 +258,7 @@
 ;        ((mean_radius ?meanRadius)(test (<= ?meanRadius 13.34)))
 ;    )
 ;=>
-;    (printout t"Probability : 0")
+;    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
 ;    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
 ;)
 
