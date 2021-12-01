@@ -141,6 +141,41 @@
     (printout t"mean texture : ")
     (assert(left_mean_texture(read))))
 
+(defrule one_mean_texture
+    (mean_texture ?value)
+    (test(<= ?value 16.19))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule one_concave_points_error
+    (concave_points_error ?value)
+    (test(> ?value 0.01))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule zero_concave_points_error
+    (concave_points_error ?value)
+    (test(<= ?value 0.01))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
+)
+
+(defrule one_mean_smoothness
+    (mean_smoothness ?value)
+    (test(<= ?value 0.09))
+=>
+    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
+)
+
+(defrule zero_mean_smoothness
+    (mean_smoothness ?value)
+    (test(> ?value 0.09))
+=>
+    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
+)
+
 (defrule one_left_worst_texture
     (left_worst_texture ?value)
     (test(<= ?value 30.15))
@@ -175,121 +210,3 @@
 =>
     (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
 )
-
-(defrule one_result
-    (left_worst_texture ?value1) 
-;    (worst_area ?value2) 
-;    (left_mean_texture ?value3)
-;    (left_mean_radius ?value4)
-;    (mean_texture ?value5) 
-;    (concave_points_error ?value6) 
-;    (mean_smoothness ?value7) 
-;   (worst_concave_points ?worstConcavePoints)
-;   (mean_radius ?meanRadius)
-=>
-    (printout t"MASUK KE RULE ONE_RESULT")
-    (if (<= ?value1 30.15)
-        ;(<= ?value2 641.60)
-        ;(> ?value3 28.79)
-        ;(> ?value4 13.45)
-        ;(<= ?value5 16.19)
-        ;(> ?value6 0.01)
-        ;(<= ?value7 0.09)
-        ;(<= ?worstConcavePoints 0.17)
-        ;(> ?meanRadius 13.34)
-    
-    then
-    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
-    )
-)
-
-
-
-
-;(defrule one_result
-;    (or 
-;        ((left_worst_texture ?value1) (test (<= ?value1 30.15)))
-;        ((worst_area ?value2) (test (<= ?value2 641.60)))
-;        ((left_mean_texture ?value3) (test (> ?value3 28.79)))
-;        ((left_mean_radius ?value4) (test (> ?value4 13.45)))
-;        ((mean_texture ?value5) (test (<= ?value5 16.19)))
-;        ((concave_points_error ?value6) (test (> ?value6 0.01)))
-;        ((mean_smoothness ?value7) (test (<= ?value7 0.09)))
-;        ((worst_concave_points ?worstConcavePoints)(test (<= ?worstConcavePoints 0.17)))
-;        ((mean_radius ?meanRadius)(test (> ?meanRadius 13.34)))
-;    )
-;=>
-;    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
-;    (printout t"Hasil Prediksi = Terprediksi terkena kanker payudara")
-;)
-
-(defrule zero_result
-    (left_mean_texture ?value1)
-;    (concave_points_error ?value2) 
-;    (mean_smoothness ?value3) 
-;    (worst_perimeter ?worstPerimeter)
-;    (worst_concave_points ?worstConcavePoints)
-;    (perimeter_error ?perimeterError)
-;    (mean_radius ?meanRadius)
-
-=>
-    (if (<= ?value1 28.79)
-        ;(<= ?value2 0.01)
-        ;(> ?value3 0.09)
-        ;(> ?worstPerimeter 114.45)
-        ;(> ?worstConcavePoints 0.17)
-        ;(> ?perimeterError 1.56)
-        ;(<= ?meanRadius 13.34)
-    
-    then
-    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
-    )
-)
-
-
-;(defrule zero_result
-;    (or 
-;        ((left_mean_texture ?value1) (test (<= ?value1 28.79)))
-;        ((concave_points_error ?value2) (test (<= ?value2 0.01)))
-;        ((mean_smoothness ?value3) (test (> ?value3 0.09)))
-;        ((worst_perimeter ?worstPerimeter)(test (> ?worstPerimeter 114.45)))
-;        ((worst_concave_points ?worstConcavePoints)(test (> ?worstConcavePoints 0.17)))
-;        ((perimeter_error ?perimeterError)(test (> ?perimeterError 1.56)))
-;        ((mean_radius ?meanRadius)(test (<= ?meanRadius 13.34)))
-;    )
-;=>
-;    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
-;    (printout t"Hasil Prediksi = Terprediksi tidak terkena kanker payudara")
-;)
-
-
-
-
-; (defrule worst_texture
-;     ?worst_perimeter <= 114.45
-; =>
-;     (assert(worst_texture(read))))
-
-; (defrule worst_concave_points
-;     ?worst_texture <= 25.65
-; =>
-;     (assert(worst_concave_points(read))))
-
-; (defrule perimeter_error
-;     ?worst_texture >25.65
-; =>
-;     (assert(perimeter_error(read))))
-
-; (defrule mean_radius
-;     ?perimeter_error <= 1.56
-; =>
-;     (assert(mean_radius(read))))
-
-; LEFT 
-; (defrule worst_radius
-;    (mean_concave_points ?mean_concave_points)
-;     (test (<= ?mean_concave_points 0.05))
-; =>
-;     (printout t"worst radius : ")
-;     (assert(worst_radius(read))))
-; )
